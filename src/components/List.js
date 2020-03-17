@@ -1,5 +1,7 @@
 import React from 'react';
-import '../App.css';
+import Pending from './Pending'
+import Deleted from './Deleted'
+import Finished from './Finished'
 
 class List extends React.Component {
 
@@ -10,10 +12,11 @@ class List extends React.Component {
         todoItem: '',
     }
 
-    addItem = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
         let myList = this.state.listItems;
         let newItem = this.state.todoItem;
+        this.setState({index: this.state.index+1});
 
         if(newItem.value !== "")
         {
@@ -34,7 +37,7 @@ class List extends React.Component {
         }
     }
 
-    deleteItem = (itemToDelete) => {
+    handleDelete = (itemToDelete) => {
         
         let myDeleteList = this.state.deletedItems;
         let myList = this.state.listItems;
@@ -50,7 +53,7 @@ class List extends React.Component {
         }
     }
 
-    finishItem = (itemToFinish) => {
+    handleFinish = (itemToFinish) => {
         
         let myFinishedList = this.state.finishedItems;
         let myList = this.state.listItems;
@@ -77,47 +80,22 @@ class List extends React.Component {
         return (
             <div className="content">
                 <section className="form-section">
-                    <form className="form" id="addItemForm" onSubmit={this.addItem}>
+                    <form className="form" id="handleSubmitForm" onSubmit={this.handleSubmit}>
                         <input type="text" onChange={this.captureInput} value={this.state.todoItem} id="itemInput" placeholder="Add Item" name="todoItem"/>
                         <button id="addItemBtn" className="btn btn-primary" style={{marginLeft: "2rem",display:"inline-block"}} type="submit"> Add Item </button>
                     </form>
                 </section>
                 <hr />
                 <div className="container">
-                    <section className="section todo-list">
-                        <h3>My Pending Tasks</h3> <hr />
-                        <ul style={{listStyleType: "none"}}>
-                            {this.state.listItems.map(item => (
-                                <li key={item} className="todo-item">
-                                    {item} &nbsp;
-                                    <i className="far fa-trash-alt" style={{marginRight:"0.5rem"}} onClick={() => this.deleteItem(item)}></i>
-                                    <i className="fas fa-check" onClick={() => this.finishItem(item)}></i>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                    <Pending 
+                        listItems={this.state.listItems}
+                        onDelete={this.handleDelete}
+                        onFinish={this.handleFinish} />
+                    
                     <br></br>
-                    <section className="section todo-list">
-                        <h3>My Finished Tasks</h3> <hr />
-                        <ul style={{listStyleType: "none"}}>
-                            {this.state.finishedItems.map(item => (
-                                <li key={item} className="todo-item">
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                    <Finished finishedItems={this.state.finishedItems} />     
                     <br></br>
-                    <section className="section todo-list">
-                        <h3>My Deleted Tasks</h3> <hr />
-                        <ul style={{listStyleType: "none"}}>
-                            {this.state.deletedItems.map(item => (
-                                <li key={item} className="todo-item">
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                    <Deleted deletedItems={this.state.deletedItems}/>
                 </div>
             </div>
         )
