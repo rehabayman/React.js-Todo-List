@@ -37,7 +37,7 @@ code {
 }
 
 .todo-item {
-  width: 100%;
+  width: 300px;
   border-bottom: 1px solid #cecece;
   font-family: Roboto, sans-serif;
   font-weight: 100;
@@ -70,3 +70,7 @@ input[type=text] {
   border-bottom: 2px solid grey;
   background-color: whitesmoke;
 }
+
+/* .action-buttons {
+  float: right;
+} */

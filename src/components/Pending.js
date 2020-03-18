@@ -18,8 +18,8 @@ class Pending extends Component {
                     {this.props.listItems.map(item => (
                         <li key={item} className="todo-item">
                             {item}
-                            <i className="far fa-trash-alt" style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }} onClick={this.handleDelete}></i>
-                            <i className="fas fa-check" onClick={this.handleFinish}></i>
+                            <i className="fas fa-check" style={{ float:"right" }} onClick={this.handleFinish}></i>
+                            <i className="far fa-trash-alt" style={{ float:"right", marginRight: "0.5rem" }} onClick={this.handleDelete}></i>
                         </li>
                     ))}
                 </ul>
